@@ -1,0 +1,1 @@
+#This config aims to test the capabilities of keyvault and particlarly how to get secret from it for VM password
