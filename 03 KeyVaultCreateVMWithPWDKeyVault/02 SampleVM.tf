@@ -12,7 +12,7 @@ module "AS_SampleVM" {
 
   #Module variables
   ASName              = "AS_SampleVM"
-  RGName              = "${module.ResourceGroup.Name}"
+  RGName              = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   ASLocation          = "${var.AzureRegion}"
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
@@ -29,7 +29,7 @@ module "SampleVMIP" {
   PublicIPCount       = "1"
   PublicIPName        = "samplevmip"
   PublicIPLocation    = "${var.AzureRegion}"
-  RGName              = "${module.ResourceGroup.Name}"
+  RGName              = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
 }
@@ -46,8 +46,8 @@ module "NICs_SampleVM" {
 
   NICName             = "NIC_SampleVM"
   NICLocation         = "${var.AzureRegion}"
-  RGName              = "${module.ResourceGroup.Name}"
-  SubnetId            = "${module.FE_Subnet.Id}"
+  RGName              = "${data.azurerm_resource_group.TerraCreatedRG.name}"
+  SubnetId            = "${data.azurerm_subnet.TerraCreatedBastionSubnet.id}"
   PublicIPId          = ["${module.SampleVMIP.Ids}"]
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
@@ -64,7 +64,7 @@ module "DataDisks_SampleVM" {
   #Module variables
 
   ManageddiskName     = "DataDisk_SampleVM"
-  RGName              = "${module.ResourceGroup.Name}"
+  RGName              = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   ManagedDiskLocation = "${var.AzureRegion}"
   StorageAccountType  = "${lookup(var.Manageddiskstoragetier, 0)}"
   CreateOption        = "Empty"
