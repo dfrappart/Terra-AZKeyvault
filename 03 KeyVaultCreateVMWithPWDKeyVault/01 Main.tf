@@ -23,7 +23,7 @@ data "azurerm_resource_group" "TerraCreatedRG" {
 
 data "azurerm_key_vault" "TerraCreatedKeyVault" {
   name                = "keyvaultdftest"
-  resource_group_name = "${data.azurerm_resource_group.TerraRG.name}"
+  resource_group_name = "${data.azurerm_resource_group.TerraCreatedRG.name}"
 }
 
 data "azurerm_resource_group" "PortalcreatedRG" {
@@ -47,6 +47,20 @@ data "azurerm_network_security_group" "TerraCreatedBastionNSG" {
 
 data "azurerm_subnet" "TerraCreatedBastionSubnet" {
   name                 = "${lookup(var.SubnetName, 2)}"
-  virtual_network_name = "${data.azurerm_virtual_network.TerraCreatedVNet}"
+  virtual_network_name = "${data.azurerm_virtual_network.TerraCreatedVNet.name}"
   resource_group_name  = "${data.azurerm_resource_group.TerraCreatedRG.name}"
+}
+
+#Data source for VM Password in keyvault
+
+data "azurerm_key_vault_secret" "VMPassword" {
+  name      = "TerraWinVMPassword"
+  vault_uri = "${data.azurerm_key_vault.PortalcreatedKeyvault.vault_uri}"
+}
+
+#Data source for diagnostic storage account
+
+data "azurerm_storage_account" "SourceSTOADiagLog" {
+  name                = "stoakeyvaulttestlog"
+  resource_group_name = "${data.azurerm_resource_group.TerraCreatedRG.name}"
 }

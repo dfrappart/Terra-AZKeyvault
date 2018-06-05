@@ -75,13 +75,6 @@ module "DataDisks_SampleVM" {
 
 #VM creation
 
-#Data source for VM Password in keyvault
-
-data "azurerm_key_vault_secret" "VMPassword" {
-  name      = "${module.WinVMPassword.Name}"
-  vault_uri = "${module.Keyvault.URI}"
-}
-
 module "VMs_SampleVM" {
   #module source
 
@@ -91,7 +84,7 @@ module "VMs_SampleVM" {
 
   VMName              = "SampleVM"
   VMLocation          = "${var.AzureRegion}"
-  VMRG                = "${module.ResourceGroup.Name}"
+  VMRG                = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   VMNICid             = ["${module.NICs_SampleVM.Ids}"]
   VMSize              = "${lookup(var.VMSize, 5)}"
   ASID                = "${module.AS_SampleVM.Id}"
@@ -104,7 +97,7 @@ module "VMs_SampleVM" {
   VMPublisherName     = "${lookup(var.PublisherName, 0)}"
   VMOffer             = "${lookup(var.Offer, 0)}"
   VMsku               = "${lookup(var.sku, 0)}"
-  DiagnosticDiskURI   = "${module.DiagStorageAccount.PrimaryBlobEP}"
+  DiagnosticDiskURI   = "${data.azurerm_storage_account.SourceSTOADiagLog.primary_blob_endpoint}"
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
   CloudinitscriptPath = "./Scripts/example.ps1"
@@ -120,7 +113,7 @@ module "CustomExtensionWinForCloudInit" {
 
   AgentName            = "CustomExtensionWinForCloudInit"
   AgentLocation        = "${var.AzureRegion}"
-  AgentRG              = "${module.ResourceGroup.Name}"
+  AgentRG              = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   VMName               = ["${module.VMs_CloudInitWin.Name}"]
   EnvironmentTag       = "${var.EnvironmentTag}"
   EnvironmentUsageTag  = "${var.EnvironmentUsageTag}"
@@ -134,7 +127,7 @@ module "CustomExtensionWinForCloudInit" {
 
 #Network Watcher Agent
 
-module "NetworkWatcherAgentForCloudInitWin" {
+module "NetworkWatcherAgentForSampleVM" {
   #Module Location
   #source = "./Modules/NetworkWatcherAgentWin"
   source = "github.com/dfrappart/Terra-AZBasicWinWithModules//Modules//NetworkWatcherAgentWin"
@@ -143,7 +136,7 @@ module "NetworkWatcherAgentForCloudInitWin" {
 
   AgentName           = "NetworkWatcherAgentForSampleVM"
   AgentLocation       = "${var.AzureRegion}"
-  AgentRG             = "${module.ResourceGroup.Name}"
+  AgentRG             = "${data.azurerm_resource_group.TerraCreatedRG.name}"
   VMName              = ["${module.VMs_SampleVM.Name}"]
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
