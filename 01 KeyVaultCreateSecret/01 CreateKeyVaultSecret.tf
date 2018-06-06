@@ -26,7 +26,7 @@ data "azurerm_resource_group" "TerracreatedRG" {
 
 data "azurerm_key_vault" "TerracreatedKeyVault" {
   name                = "keyvaultdftest"
-  resource_group_name = "${data.azurerm_resource_group.TerraRG.name}"
+  resource_group_name = "${data.azurerm_resource_group.TerracreatedRG.name}"
 }
 
 data "azurerm_resource_group" "PortalcreatedRG" {
@@ -47,7 +47,7 @@ module "WinVMPassword" {
   source = "./Modules/02 KeyvaultSecret"
 
   #Module variable
-  PasswordName        = "TerraWinVMPassword"
+  PasswordName        = "WinVMPassword"
   PasswordValue       = "${var.VMAdminPassword}"
   VaultURI            = "${data.azurerm_key_vault.PortalcreatedKeyvault.vault_uri}"
   EnvironmentTag      = "${var.EnvironmentTag}"

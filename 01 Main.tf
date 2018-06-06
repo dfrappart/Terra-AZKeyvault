@@ -116,19 +116,16 @@ module "Keyvault" {
   source = "./Modules/01 Keyvault"
 
   #Module variables
-  KeyVaultName                  = "keyvaultdftest"
-  KeyVaultRG                    = "${module.ResourceGroup.Name}"
-  KeyVaultObjectID              = "${var.AzureObjectID}"
-  KeyVaultTenantID              = "${var.AzureTenantID}"
-  KeyVaultApplicationID         = "${var.AzureApplicationID}"
-  EnvironmentTag                = "${var.EnvironmentTag}"
-  EnvironmentUsageTag           = "${var.EnvironmentUsageTag}"
-  KeyVaultEnabledforDeployment  = "false"
-  KeyVaultEnabledforDiskEncrypt = "false"
-  KeyVaultEnabledforTempDeploy  = "false"
+  KeyVaultName            = "keyvaultdftest"
+  KeyVaultRG              = "${module.ResourceGroup.Name}"
+  KeyVaultObjectIDPolicy2 = "${var.AzureObjectID}"
+  KeyVaultObjectIDPolicy1 = "c2d0f544-aa1e-454a-8daf-a99985634aa9"
+  KeyVaultTenantID        = "${var.AzureTenantID}"
+  KeyVaultApplicationID   = "${var.AzureApplicationID}"
+  EnvironmentTag          = "${var.EnvironmentTag}"
+  EnvironmentUsageTag     = "${var.EnvironmentUsageTag}"
 }
 
-/*
 module "WinVMPassword" {
   #Module location
   source = "./Modules/02 KeyvaultSecret"
@@ -140,6 +137,3 @@ module "WinVMPassword" {
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
 }
-
-*/
-

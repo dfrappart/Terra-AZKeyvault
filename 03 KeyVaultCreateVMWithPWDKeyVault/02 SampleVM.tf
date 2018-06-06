@@ -2,6 +2,29 @@
 #This file creates Windows VM
 ##############################################################
 
+#NSG Rules
+
+#NSG Rules
+
+module "AllowRDPFromInternetBastionIn" {
+  #Module source
+  #source = "./Modules/08 NSGRule"
+  source = "github.com/dfrappart/Terra-AZBasiclinuxWithModules//Modules//08 NSGRule"
+
+  #Module variable
+  RGName                          = "${data.azurerm_resource_group.TerraCreatedRG.name}"
+  NSGReference                    = "${data.azurerm_network_security_group.TerraCreatedBastionNSG.name}"
+  NSGRuleName                     = "AllowRDPFromInternetBastionIn"
+  NSGRulePriority                 = 101
+  NSGRuleDirection                = "Inbound"
+  NSGRuleAccess                   = "Allow"
+  NSGRuleProtocol                 = "Tcp"
+  NSGRuleSourcePortRange          = "*"
+  NSGRuleDestinationPortRange     = 3389
+  NSGRuleSourceAddressPrefix      = "Internet"
+  NSGRuleDestinationAddressPrefix = "${data.azurerm_subnet.TerraCreatedBastionSubnet.address_prefix}"
+}
+
 #Availability set creation
 
 module "AS_SampleVM" {
