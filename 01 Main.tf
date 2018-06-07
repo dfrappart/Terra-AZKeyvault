@@ -126,6 +126,7 @@ module "Keyvault" {
   EnvironmentUsageTag     = "${var.EnvironmentUsageTag}"
 }
 
+/*
 module "WinVMPassword" {
   #Module location
   source = "./Modules/02 KeyvaultSecret"
@@ -137,3 +138,5 @@ module "WinVMPassword" {
   EnvironmentTag      = "${var.EnvironmentTag}"
   EnvironmentUsageTag = "${var.EnvironmentUsageTag}"
 }
+
+*/

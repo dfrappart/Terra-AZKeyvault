@@ -24,7 +24,7 @@ data "azurerm_resource_group" "TerraRG" {
   name = "${var.RGName}-${var.EnvironmentUsageTag}${var.EnvironmentTag}"
 }
 
-data "azurerm_key_vault" "TerraKeyVault" {
+data "azurerm_key_vault" "TerraCreatedKeyVault" {
   name                = "keyvaultdftest"
   resource_group_name = "${data.azurerm_resource_group.TerraRG.name}"
 }
@@ -38,7 +38,12 @@ data "azurerm_key_vault" "PortalcreatedKeyvault" {
   resource_group_name = "${data.azurerm_resource_group.PortalcreatedRG.name}"
 }
 
-data "azurerm_key_vault_secret" "SecretVMPwd" {
-  name      = "TerraWinVMPassword"
+data "azurerm_key_vault_secret" "SecretVMPwdPortalCreatedKV" {
+  name      = "DefaultWinPassword"
   vault_uri = "${data.azurerm_key_vault.PortalcreatedKeyvault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "SecretVMPwdTerraCreatedKV" {
+  name      = "TerraWinVMPassword"
+  vault_uri = "${data.azurerm_key_vault.TerraCreatedKeyVault.vault_uri}"
 }
