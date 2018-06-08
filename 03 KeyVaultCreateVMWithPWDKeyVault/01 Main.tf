@@ -54,7 +54,7 @@ data "azurerm_subnet" "TerraCreatedBastionSubnet" {
 #Data source for VM Password in keyvault
 
 data "azurerm_key_vault_secret" "VMPassword" {
-  name      = "DefaultVMPassword"
+  name      = "DefaultWinPassword"
   vault_uri = "${data.azurerm_key_vault.PortalcreatedKeyvault.vault_uri}"
 }
 

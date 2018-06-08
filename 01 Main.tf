@@ -119,7 +119,7 @@ module "Keyvault" {
   KeyVaultName            = "keyvaultdftest"
   KeyVaultRG              = "${module.ResourceGroup.Name}"
   KeyVaultObjectIDPolicy2 = "${var.AzureObjectID}"
-  KeyVaultObjectIDPolicy1 = "c2d0f544-aa1e-454a-8daf-a99985634aa9"
+  KeyVaultObjectIDPolicy1 = "${var.AzureServicePrincipalInteractive}"
   KeyVaultTenantID        = "${var.AzureTenantID}"
   KeyVaultApplicationID   = "${var.AzureApplicationID}"
   EnvironmentTag          = "${var.EnvironmentTag}"
@@ -140,3 +140,4 @@ module "WinVMPassword" {
 }
 
 */
+
