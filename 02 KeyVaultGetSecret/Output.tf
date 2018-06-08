@@ -41,7 +41,8 @@ output "TerraCreatedKeyVaultVaultAccessPolicy" {
 #Keyvault Secrets
 
 output "PortalCreatedKeyVaultPwdValue" {
-  value = "${data.azurerm_key_vault_secret.SecretVMPwdPortalCreatedKV.value}"
+  value     = "${data.azurerm_key_vault_secret.SecretVMPwdPortalCreatedKV.value}"
+  sensitive = true
 }
 
 output "PortalCreatedKeyVaultPwdId" {
@@ -53,7 +54,8 @@ output "PortalCreatedKeyVaultPwdContentType" {
 }
 
 output "TerraCreatedKeyVaultPwdValue" {
-  value = "${data.azurerm_key_vault_secret.SecretVMPwdTerraCreatedKV.value}"
+  value     = "${data.azurerm_key_vault_secret.SecretVMPwdTerraCreatedKV.value}"
+  sensitive = true
 }
 
 output "TerraCreatedKeyVaultPwdId" {
