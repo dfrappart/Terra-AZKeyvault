@@ -44,7 +44,7 @@ data "azurerm_key_vault" "PortalcreatedKeyvault" {
 
 module "WinVMPassword" {
   #Module location
-  source = "./Modules/02 KeyvaultSecret"
+  source = "github.com/dfrappart/Terra-AZModuletest//Modules//28 KeyvaultSecret"
 
   #Module variable
   PasswordName        = "WinVMPassword"
@@ -56,7 +56,7 @@ module "WinVMPassword" {
 
 module "TerraWinVMPassword" {
   #Module location
-  source = "./Modules/02 KeyvaultSecret"
+  source = "github.com/dfrappart/Terra-AZModuletest//Modules//28 KeyvaultSecret"
 
   #Module variable
   PasswordName        = "TerraWinVMPassword"
