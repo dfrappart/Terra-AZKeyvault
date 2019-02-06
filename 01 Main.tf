@@ -107,7 +107,7 @@ module "InfraFileShare" {
   ShareName          = "infrafileshare"
   RGName             = "${module.ResourceGroup.Name}"
   StorageAccountName = "${module.FilesExchangeStorageAccount.Name}"
-  Quota              = "0"
+  #Quota              = "0"
 }
 
 module "Keyvault" {
@@ -121,7 +121,7 @@ module "Keyvault" {
   KeyVaultObjectIDPolicy2 = "${var.AzureObjectID}"
   KeyVaultObjectIDPolicy1 = "${var.AzureServicePrincipalInteractive}"
   KeyVaultTenantID        = "${var.AzureTenantID}"
-  KeyVaultApplicationID   = "${var.AzureApplicationID}"
+  #KeyVaultApplicationID   = "${var.AzureApplicationID}"
   EnvironmentTag          = "${var.EnvironmentTag}"
   EnvironmentUsageTag     = "${var.EnvironmentUsageTag}"
 }
